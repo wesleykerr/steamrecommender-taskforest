@@ -1,0 +1,5 @@
+
+cd /usr/local/game-recommender
+echo `pwd`
+
+java -cp "recommender-0.0.1-SNAPSHOT.jar" com.wesleykerr.steam.api.UpdatePlayers week_old 

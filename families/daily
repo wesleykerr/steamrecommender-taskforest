@@ -1,0 +1,7 @@
+start => '00:05', tz => 'America/Los_Angeles', calendar => 'daily'
+
+run_new_players(start => '02:00', every=>'360', until=>'23:55')
+-------------------------------------------------------
+run_week_old(start => '01:00', every=>'240', until=>'23:55')
+-------------------------------------------------------
+run_apps(start => '22:00')
