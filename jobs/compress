@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd /Users/wkerr/data/steam/
-dtstr=`date -v '-7d' "+%m%d%Y"`
+dtstr=`date -v '-5d' "+%m%d%Y"`
 
 mv player-updates player-updates-$dtstr
 gzip player-updates-$dtstr
