@@ -2,4 +2,4 @@
 cd /usr/local/game-recommender
 echo `pwd`
 
-java -cp "recommender-0.0.1-SNAPSHOT.jar" com.wesleykerr.steam.api.UpdatePlayers new_players
+java -cp "recommender-0.0.1-SNAPSHOT.jar" com.wesleykerr.steam.etl.UpdatePlayers new_players
