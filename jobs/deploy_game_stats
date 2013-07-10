@@ -1,0 +1,15 @@
+
+cd /usr/local/game-recommender
+echo `pwd`
+
+if [ -f /tmp/taskforest.gamestats.lock ]
+then
+  echo player is locked and we will exit now
+  exit 1
+fi
+
+touch /tmp/taskforest.gamestats.lock
+
+java -cp "recommender-0.0.2-SNAPSHOT.jar" com.wesleykerr.steam.etl.PushPlaytime 
+
+rm /tmp/taskforest.gamestats.lock
