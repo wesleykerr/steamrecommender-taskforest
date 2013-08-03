@@ -1,8 +1,14 @@
 #!/bin/bash
 
+echo $PATH
+export PATH=$PATH:/usr/local/bin
+
 cd /Users/wkerr/data/steam/
 dtstr=`date -v '-4d' "+%m%d%Y"`
 
 mv player-updates player-updates-$dtstr
 gzip player-updates-$dtstr
+
+hadoop fs -copyFromLocal player-updates-$dtstr /steam/raw/$dtstr/player-updates.gz
+
 
