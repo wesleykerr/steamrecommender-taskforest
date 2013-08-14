@@ -2,14 +2,5 @@
 cd /usr/local/game-recommender
 echo `pwd`
 
-if [ -f /tmp/taskforest.player.lock ]
-then
-  echo player is locked and we will exit now
-  exit 1
-fi
-
-touch /tmp/taskforest.player.lock
-
 java -cp "recommender.jar" com.wesleykerr.steam.etl.UpdatePlayers new_players
 
-rm /tmp/taskforest.player.lock
