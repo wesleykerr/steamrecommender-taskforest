@@ -9,6 +9,6 @@ dtstr=`date -v '-4d' "+%m%d%Y"`
 mv player-updates player-updates-$dtstr
 gzip player-updates-$dtstr
 
-hadoop fs -copyFromLocal player-updates-$dtstr /steam/raw/$dtstr/player-updates.gz
+hadoop fs -copyFromLocal player-updates-$dtstr.gz /steam/raw/$dtstr/player-updates.gz
 
 
