@@ -3,7 +3,7 @@
 echo $PATH
 export PATH=$PATH:/usr/local/bin
 
-cd /Users/wkerr/data/steam/
+cd /data/steam/
 dtstr=`date -v '-4d' "+%m%d%Y"`
 
 mv player-updates player-updates-$dtstr

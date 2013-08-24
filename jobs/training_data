@@ -4,7 +4,7 @@ echo $PATH
 export PATH=$PATH:/usr/local/bin
 cd /usr/local/game-recommender
 echo `pwd`
-DATA=/Users/wkerr/data/steam
+DATA=/data/steam
 
 cp $DATA/player-updates /tmp/player-updates
 rm -f /tmp/player-updates.gz
