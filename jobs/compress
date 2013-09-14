@@ -1,10 +1,11 @@
 #!/bin/bash
+source ~/.bash_profile
 
 echo $PATH
 export PATH=$PATH:/usr/local/bin
 
 cd /data/steam/
-dtstr=`date -v '-4d' "+%m%d%Y"`
+dtstr=`date --date='last Monday' "+%m%d%Y"`
 
 mv player-updates player-updates-$dtstr
 gzip player-updates-$dtstr
