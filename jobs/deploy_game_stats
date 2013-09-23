@@ -12,4 +12,7 @@ touch /tmp/taskforest.gamestats.lock
 
 java -cp "recommender.jar" com.wesleykerr.steam.etl.PushPlaytime 
 
+echo "Hitting the endpoint that updates the images"
+curl http://www.steamrecommender.com/update/images
+
 rm /tmp/taskforest.gamestats.lock
