@@ -13,7 +13,7 @@ gzip /tmp/player-updates
 
 hadoop fs -rmr /steam/raw/current/player-updates.gz
 hadoop fs -copyFromLocal /tmp/player-updates.gz /steam/raw/current/player-updates.gz
-hadoop jar recommender.jar com.wesleykerr.recommender.RecentData /steam/raw/* /steam/data
+hadoop jar recommender.jar com.wesleykerr.steam.mapreduce.RecentData /steam/raw/* /steam/data
 
 rm -f $DATA/training-data.gz
 hadoop fs -copyToLocal /steam/data/part-r-00000.gz $DATA/training-data.gz
