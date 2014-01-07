@@ -1,0 +1,17 @@
+#!/bin/bash
+source ~/.bash_profile
+
+DTSTR=`date "+%m%d%Y"`
+BACKUP=/home/wkerr/bitcasa/steamrecommender.com
+
+mkdir $BACKUP/$DTSTR
+
+echo "Backing up database..."
+mysqldump -h mysql.seekerr.com -u $DB_USER --password=$DB_PASSWORD \
+	--databases game_recommender > $BACKUP/$DTSTR/game_recommender.sql
+
+echo "Backing up couchbase..."
+mkdir -p /tmp/backup/$DTSTR
+/opt/couchbase/bin/cbbackup http://$COUCHBASE_ADMIN:$COUCHBASE_PASSWORD@192.168.0.8:8091 /tmp/backup/$DTSTR
+mv /tmp/backup/$DTSTR $BACKUP/$DTSTR/couchbase
+

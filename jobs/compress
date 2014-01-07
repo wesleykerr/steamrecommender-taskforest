@@ -12,4 +12,6 @@ gzip player-updates-$dtstr
 
 hadoop fs -copyFromLocal player-updates-$dtstr.gz /steam/raw/$dtstr/player-updates.gz
 
+# backup a copy of the new player-updates file
+cp player-updates-$dtstr /home/wkerr/bitcasa/steamrecommender.com/steam/
 
