@@ -6,17 +6,17 @@ BACKUP=/home/wkerr/bitcasa/steamrecommender.com
 TMP=/tmp/backup
 
 mkdir $BACKUP/$DTSTR
-mkdir -p /tmp/$DTSTR
+mkdir -p $TMP/$DTSTR
 
 echo "Backing up database..."
 mysqldump -h mysql.seekerr.com -u $DB_USER --password=$DB_PASSWORD \
 	--databases game_recommender > $TMP/$DTSTR/game_recommender.sql
 gzip $TMP/$DTSTR/game_recommender.sql
-mv $TMP/$DTSTR/game_recommender.sql.gz $BACKUP/$DTSTR/couchbase
+mv $TMP/$DTSTR/game_recommender.sql.gz $BACKUP/$DTSTR/
 
 echo "Backing up couchbase..."
-mkdir -p /tmp/backup/$DTSTR
-/opt/couchbase/bin/cbbackup http://$COUCHBASE_ADMIN:$COUCHBASE_PASSWORD@192.168.0.8:8091 $TMP/$DTSTR
+mkdir -p $TMP/$DTSTR
+/opt/couchbase/bin/cbbackup http://$COUCHBASE_ADMIN:$COUCHBASE_PASSWORD@192.168.1.7:8091 $TMP/$DTSTR
 mv $TMP/$DTSTR $BACKUP/$DTSTR/couchbase
 
 rm -rf $TMP/$DTSTR
