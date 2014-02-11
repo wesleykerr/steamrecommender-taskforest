@@ -2,4 +2,4 @@
 cd /usr/local/game-recommender
 echo `pwd`
 
-java -cp "recommender.jar" com.wesleykerr.steam.etl.UpdatePlayers week_old_players
+java -cp "recommender.jar" com.wesleykerr.steam.etl.UpdatePlayers refresh 100 15

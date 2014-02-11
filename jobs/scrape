@@ -2,5 +2,5 @@
 cd /usr/local/game-recommender
 echo `pwd`
 
-java -cp "recommender.jar" com.wesleykerr.steam.scraping.FriendsCollector
+java -cp "recommender.jar" com.wesleykerr.steam.scraping.FriendsCollector 100 10
 
