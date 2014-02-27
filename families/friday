@@ -1,6 +1,5 @@
 start => '00:05', tz => 'America/Los_Angeles', days => 'Fri'
 
-compress(start => '23:00')
 -------------------------------------------------------
 backup(start => '23:30')
 

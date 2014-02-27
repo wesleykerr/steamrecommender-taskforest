@@ -1,24 +1,28 @@
 #!/bin/bash
 source ~/.bash_profile
 
+DATA=/data/steam
+rm -f $DATA/training-data.gz
+
+mysql -u $DB_USER --password=$DB_PASSWORD -e "
+  select steamid, content
+  from steam_data.players
+  where revision > 0 
+  and num_games > 0
+  and private = 0
+  into outfile '$DATA/training-data'
+  fields terminated by '\t'
+"
+gzip $DATA/training-data
+
 echo $PATH
 export PATH=$PATH:/usr/local/bin
 cd /usr/local/game-recommender
-echo `pwd`
-DATA=/data/steam
-
-cp $DATA/player-updates /tmp/player-updates
-rm -f /tmp/player-updates.gz
-gzip /tmp/player-updates
-
-hadoop fs -rmr /steam/raw/current/player-updates.gz
-hadoop fs -copyFromLocal /tmp/player-updates.gz /steam/raw/current/player-updates.gz
-hadoop jar recommender.jar com.wesleykerr.steam.mapreduce.RecentData /steam/raw/* /steam/data
-
-rm -f $DATA/training-data.gz
-hadoop fs -copyToLocal /steam/data/part-r-00000.gz $DATA/training-data.gz
 
 java -cp recommender.jar com.wesleykerr.recommender.TrainingData
 java -cp recommender.jar com.wesleykerr.recommender.cf.CollaborativeFilter
 java -cp recommender.jar com.wesleykerr.recommender.DeployModel
+
+java -cp recommender.jar com.wesleykerr.recommender.UpdateSteamDataset weekly
+java -cp recommender.jar com.wesleykerr.steam.tools.GameRecommendations
 
