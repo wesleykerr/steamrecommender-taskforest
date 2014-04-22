@@ -14,10 +14,11 @@ mysqldump -h mysql.seekerr.com -u $DB_USER --password=$DB_PASSWORD \
 gzip $TMP/$DTSTR/game_recommender.sql
 mv $TMP/$DTSTR/game_recommender.sql.gz $BACKUP/$DTSTR/
 
-echo "Backing up couchbase..."
-mkdir -p $TMP/$DTSTR
-/opt/couchbase/bin/cbbackup http://$COUCHBASE_ADMIN:$COUCHBASE_PASSWORD@192.168.1.7:8091 $TMP/$DTSTR
-mv $TMP/$DTSTR $BACKUP/$DTSTR/couchbase
+echo "Backing up localhost database..."
+mysqldump -h localhost -u $DB_USER --password=$DB_PASSWORD \
+	--databases steam_data > $TMP/$DTSTR/steam_data.sql
+gzip $TMP/$DTSTR/steam_data.sql
+mv $TMP/$DTSTR/steam_data.sql.gz $BACKUP/$DTSTR/
 
 rm -rf $TMP/$DTSTR
 
