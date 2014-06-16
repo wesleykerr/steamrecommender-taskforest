@@ -1,6 +1,6 @@
 start => '00:05', tz => 'America/Los_Angeles', calendar => 'daily'
 
-run_sample(start => '01:00', every=>'120', until=>'20:00')
+sample_run(start => '01:00', every=>'120', until=>'20:00')
 -------------------------------------------------------
 #run_new_players(start => '02:30', every=>'240', until=>'23:55')
 -------------------------------------------------------

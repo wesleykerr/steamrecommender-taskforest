@@ -1,5 +1,5 @@
 start => '00:05', tz => 'America/Los_Angeles', days => 'Sat'
 
 -------------------------------------------------------
-training(start => '22:00')
+sample_training(start => '22:00')
 
