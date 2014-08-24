@@ -2,23 +2,25 @@
 source ~/.bash_profile
 
 DTSTR=`date "+%m%d%Y"`
-BACKUP=/home/wkerr/bitcasa/steamrecommender.com
 TMP=/tmp/backup
 
-mkdir $BACKUP/$DTSTR
 mkdir -p $TMP/$DTSTR
 
 echo "Backing up database..."
 mysqldump -h mysql.seekerr.com -u $DB_USER --password=$DB_PASSWORD \
 	--databases game_recommender > $TMP/$DTSTR/game_recommender.sql
 gzip $TMP/$DTSTR/game_recommender.sql
-mv $TMP/$DTSTR/game_recommender.sql.gz $BACKUP/$DTSTR/
 
 echo "Backing up localhost database..."
 mysqldump -h localhost -u $DB_USER --password=$DB_PASSWORD \
 	--databases steam_data > $TMP/$DTSTR/steam_data.sql
 gzip $TMP/$DTSTR/steam_data.sql
-mv $TMP/$DTSTR/steam_data.sql.gz $BACKUP/$DTSTR/
 
+sshpass -p $RSYNC_PASSWORD rsync -e ssh -av $TMP/$DTSTR b418667@hanjin.dreamhost.com:steam-backup --delete 
 rm -rf $TMP/$DTSTR
+
+mkdir -p /tmp/steam
+cp /data/steam/sample-ratings-file.gz /tmp/steam
+cp /data/steam/sample-training-data.gz /tmp/steam
+sshpass -p $RSYNC_PASSWORD rsync -e ssh -av /tmp/steam/ b418667@hanjin.dreamhost.com:steam 
 

@@ -2,5 +2,5 @@
 source ~/.bash_profile
 
 rm /tmp/UpdatePlayers.lock
-
+rm /tmp/*.lock
 
