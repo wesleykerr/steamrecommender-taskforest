@@ -1,12 +1,9 @@
 #!/bin/bash
-#!/bin/bash
 set -e
 source ~/.bash_profile
 
 echo $PATH
 export PATH=$PATH:/usr/local/bin
-cd /usr/local/game-recommender
 
-java -cp recommender.jar com.wesleykerr.steam.etl.UpdateSteamDataset \
-	-r daily
+java -cp /steamrecommender/recommender.jar com.wesleykerr.steam.etl.UpdateSteamDataset -r daily
 

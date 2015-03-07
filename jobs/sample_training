@@ -4,7 +4,7 @@ source ~/.bash_profile
 
 DTSTR_START=`date "+%Y-%m-%d" --date="30 days ago"`
 DTSTR_END=`date "+%Y-%m-%d"`
-DATA=/data/steam
+DATA=/steamrecommender/data
 TRAIN=$DATA/sample-training-data
 rm -f ${TRAIN}.gz
 
@@ -21,24 +21,23 @@ mysql -h localhost -u $DB_USER --password=$DB_PASSWORD -e "
 gzip $TRAIN
 
 export PATH=$PATH:/usr/local/bin
-cd /usr/local/game-recommender
 
 echo "...prepare training data"
-java -cp recommender.jar com.wesleykerr.recommender.TrainingData \
+java -cp /steamrecommender/recommender.jar com.wesleykerr.recommender.TrainingData \
 	-i $TRAIN.gz -o $DATA/sample-ratings-file.gz
 
 echo "...run collaborative filter"
-java -cp ml.jar com.wesleykerr.ranking.CollaborativeFilter \
+java -cp /steamrecommender/ml.jar com.wesleykerr.ranking.CollaborativeFilter \
 	-i $DATA/sample-ratings-file.gz -o $DATA/sampling-model.csv
 
 echo "...deploy model"
-java -cp recommender.jar com.wesleykerr.recommender.DeployModel \
+java -cp /steamrecommender/recommender.jar com.wesleykerr.recommender.DeployModel \
 	-i $DATA/sampling-model.csv -m 1
 
 echo "...update steam"
-java -cp recommender.jar com.wesleykerr.steam.etl.UpdateSteamDataset \
+java -cp /steamrecommender/recommender.jar com.wesleykerr.steam.etl.UpdateSteamDataset \
         -r weekly -i $TRAIN.gz -o /data/steam/playtime
 
-java -cp recommender.jar com.wesleykerr.steam.tools.GameRecommendations
+java -cp /steamrecommender/recommender.jar com.wesleykerr.steam.tools.GameRecommendations
 
 

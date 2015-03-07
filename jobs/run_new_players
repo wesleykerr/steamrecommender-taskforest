@@ -1,6 +1,3 @@
 
-cd /usr/local/game-recommender
-echo `pwd`
-
-java -cp "recommender.jar" com.wesleykerr.steam.etl.UpdatePlayers new 100 15
+java -cp "/steamrecommender/recommender.jar" com.wesleykerr.steam.etl.UpdatePlayers new 100 15
 

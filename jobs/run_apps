@@ -4,5 +4,5 @@ source ~/.bash_profile
 
 rvm use 1.9.3 
 
-cd /usr/local/game-recommender/lib/
+cd /steamrecommender/game-etl/
 ruby app_process.rb

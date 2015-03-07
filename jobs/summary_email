@@ -2,7 +2,6 @@
 source ~/.bash_profile
 
 DTSTR=`date "+%Y-%m-%d"`
-cd /usr/local/game-recommender
 
-java -cp "recommender.jar" com.wesleykerr.steam.summary.SummaryEmail $DTSTR
+java -cp "/steamrecommender/recommender.jar" com.wesleykerr.steam.summary.SummaryEmail $DTSTR
 
