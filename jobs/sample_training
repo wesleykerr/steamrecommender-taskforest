@@ -2,14 +2,14 @@
 set -e
 source ~/.bash_profile
 
-DTSTR_START=`date "+%Y-%m-%d" --date="3 days ago"`
+DTSTR_START=`date "+%Y-%m-%d" --date="30 days ago"`
 DTSTR_END=`date "+%Y-%m-%d"`
 DATA=/data/steam
 TRAIN=$DATA/sample-training-data
 rm -f ${TRAIN}.gz
 
 echo "...extract data from MySQL"
-mysql -u $DB_USER --password=$DB_PASSWORD -e "
+mysql -h localhost -u $DB_USER --password=$DB_PASSWORD -e "
   select steamid, content
   from steam_data.players_sample
   where private = 0
@@ -41,8 +41,4 @@ java -cp recommender.jar com.wesleykerr.steam.etl.UpdateSteamDataset \
 
 java -cp recommender.jar com.wesleykerr.steam.tools.GameRecommendations
 
-# copy over the training data in order to access it
-# from work without spinning up a database in order to get it.
-sshpass -p $RSYNC_PASSWORD \
-  rsync -e ssh -av ${TRAIN}.gz b418667@hanjin.dreamhost.com:steam
 

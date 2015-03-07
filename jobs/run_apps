@@ -3,7 +3,6 @@
 source ~/.bash_profile
 
 rvm use 1.9.3 
-ruby -version
 
 cd /usr/local/game-recommender/lib/
 ruby app_process.rb

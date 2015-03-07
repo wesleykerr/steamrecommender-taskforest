@@ -2,25 +2,29 @@
 source ~/.bash_profile
 
 DTSTR=`date "+%m%d%Y"`
-TMP=/tmp/backup
+TMP=/tmp
 
-mkdir -p $TMP/$DTSTR
+#mkdir -p $TMP/$DTSTR
 
 echo "Backing up database..."
-mysqldump -h mysql.seekerr.com -u $DB_USER --password=$DB_PASSWORD \
-	--databases game_recommender > $TMP/$DTSTR/game_recommender.sql
-gzip $TMP/$DTSTR/game_recommender.sql
+rm -f $TMP/game_recommender.sql $TMP/game_recommender.sql.gz
+mysqldump -h localhost -u $DB_USER --password=$DB_PASSWORD \
+	--databases game_recommender > $TMP/game_recommender.sql
+gzip $TMP/game_recommender.sql
 
 echo "Backing up localhost database..."
+rm -f $TMP/steam_data.sql $TMP/steam_data.sql.gz
 mysqldump -h localhost -u $DB_USER --password=$DB_PASSWORD \
-	--databases steam_data > $TMP/$DTSTR/steam_data.sql
-gzip $TMP/$DTSTR/steam_data.sql
+	--databases steam_data > $TMP/steam_data.sql
+gzip $TMP/steam_data.sql
 
-sshpass -p $RSYNC_PASSWORD rsync -e ssh -av $TMP/$DTSTR b418667@hanjin.dreamhost.com:steam-backup --delete 
-rm -rf $TMP/$DTSTR
+HOME=/home/wkerr/Dropbox
+DEST=$HOME/steamrecommender/backup/$DTSTR
+mkdir -p $DEST
 
-mkdir -p /tmp/steam
-cp /data/steam/sample-ratings-file.gz /tmp/steam
-cp /data/steam/sample-training-data.gz /tmp/steam
-sshpass -p $RSYNC_PASSWORD rsync -e ssh -av /tmp/steam/ b418667@hanjin.dreamhost.com:steam 
+mv $TMP/game_recommender.sql.gz $DEST/
+mv $TMP/steam_data.sql.gz $DEST/
+
+cp /data/steam/sample-ratings-file.gz $HOME/steamrecommender/
+cp /data/steam/sample-training-data.gz $HOME/steamrecommender/
 
