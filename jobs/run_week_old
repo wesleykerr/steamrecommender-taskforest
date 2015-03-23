@@ -1,2 +1,3 @@
 
+cd /steamrecommender
 java -cp "/steamrecommender/recommender.jar" com.wesleykerr.steam.etl.UpdatePlayers refresh 100 15
