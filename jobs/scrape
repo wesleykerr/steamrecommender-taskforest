@@ -1,3 +1,4 @@
 
+cd /steamrecommender
 java -cp "/steamrecommender/recommender.jar" com.wesleykerr.steam.scraping.FriendsCollector 100 10
 
