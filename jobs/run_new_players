@@ -1,4 +1,0 @@
-
-cd /steamrecommender
-java -cp "/steamrecommender/recommender.jar" com.wesleykerr.steam.etl.UpdatePlayers new 100 15
-
