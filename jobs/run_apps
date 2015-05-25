@@ -1,8 +1,6 @@
 #!/bin/bash
-
-source ~/.bash_profile
-
-rvm use 1.9.3 
+source /home/dhc-user/.profile
+source /steamrecommender/config/site_overrides
 
 cd /steamrecommender/game-etl/
 ruby app_process.rb

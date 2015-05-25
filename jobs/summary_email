@@ -1,6 +1,7 @@
 #!/bin/bash
 source ~/.bash_profile
 
+cd /steamrecommender
 DTSTR=`date "+%Y-%m-%d"`
 
 java -cp "/steamrecommender/recommender.jar" com.wesleykerr.steam.summary.SummaryEmail $DTSTR

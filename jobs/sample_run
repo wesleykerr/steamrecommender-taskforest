@@ -1,5 +1,6 @@
 #!/bin/bash
 source ~/.bash_profile
 
+cd /steamrecommender
 java -cp "/steamrecommender/recommender.jar" com.wesleykerr.steam.etl.RandomSample 1000 10
 

@@ -1,15 +1,15 @@
 #!/bin/bash
 set -e
-source ~/.bash_profile
+source /steamrecommender/config/site_overrides
 
 DTSTR_START=`date "+%Y-%m-%d" --date="30 days ago"`
 DTSTR_END=`date "+%Y-%m-%d"`
-DATA=/steamrecommender/data
+DATA=/data
 TRAIN=$DATA/sample-training-data
 rm -f ${TRAIN}.gz
 
 echo "...extract data from MySQL"
-mysql -h localhost -u $DB_USER --password=$DB_PASSWORD -e "
+mysql --login-path=local -e "
   select steamid, content
   from steam_data.players_sample
   where private = 0
@@ -20,14 +20,15 @@ mysql -h localhost -u $DB_USER --password=$DB_PASSWORD -e "
 "
 gzip $TRAIN
 
+cd /steamrecommender
 export PATH=$PATH:/usr/local/bin
 
 echo "...prepare training data"
-java -cp /steamrecommender/recommender.jar com.wesleykerr.recommender.TrainingData \
+java -Xmx1024m -cp /steamrecommender/recommender.jar com.wesleykerr.recommender.TrainingData \
 	-i $TRAIN.gz -o $DATA/sample-ratings-file.gz
 
 echo "...run collaborative filter"
-java -cp /steamrecommender/ml.jar com.wesleykerr.ranking.CollaborativeFilter \
+java -Xmx1024m -cp /steamrecommender/ml.jar com.wesleykerr.ranking.CollaborativeFilter \
 	-i $DATA/sample-ratings-file.gz -o $DATA/sampling-model.csv
 
 echo "...deploy model"

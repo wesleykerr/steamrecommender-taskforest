@@ -2,6 +2,7 @@
 set -e
 source ~/.bash_profile
 
+cd /steamrecommender
 echo $PATH
 export PATH=$PATH:/usr/local/bin
 
